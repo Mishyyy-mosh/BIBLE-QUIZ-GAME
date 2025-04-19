@@ -31,6 +31,22 @@ function beginQuiz() {
     alert("No questions found for this selection.");
     return;
   }
+  fetch('https://script.google.com/macros/s/AKfycbyOJ_o_ntJO19O7ap5QVUZCxelhEKX59Fy1el2cxBeg5Bu0M9mbRG9uqwF9tnbxudQFSw/exec', {
+    method: 'POST',
+    body: JSON.stringify({
+      timestamp: new Date().toISOString(),
+      page: window.location.href,
+      selection: {
+        testament,
+        difficulty
+      }
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).catch(err => {
+    console.error('Notification failed:', err);
+  });
 
   document.getElementById("setup-screen").classList.add("hidden");
   document.getElementById("game-screen").classList.remove("hidden");
